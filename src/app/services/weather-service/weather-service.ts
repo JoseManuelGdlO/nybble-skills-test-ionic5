@@ -19,6 +19,8 @@ export class WeatherService {
   }
 
   async getWeather() {
+    // Si se quiere usar con un dipositivo real porfavor de descomentar las lineas que sean necesarias
+    // para hacer uso del plugin de Geolocalizacion
     // const coordinates: Position = await Geolocation.getCurrentPosition();
     // console.log('Current position:', coordinates);
 
@@ -27,7 +29,7 @@ export class WeatherService {
     // {coordinates.coords.latitude}&lon=${coordinates.coords.longitude}&appid=${API_KEY}&lang=es&units=metric`;
 
       const url =
-      `http://api.openweathermap.org/data/2.5/forecast?q=Durango&appid=${API_KEY}&lang=es&units=metric`;
+      `http://api.openweathermap.org/data/2.5/forecast?q=Rosario&appid=${API_KEY}&lang=es&units=metric`;
 
     try {
       const response: any = await this.httpConnectionService.getMethod(url);
