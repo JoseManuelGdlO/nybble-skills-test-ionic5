@@ -1,0 +1,128 @@
+<ion-content>
+  <img class="width100" src="assets/imgs/Banner.jpg" alt="banner image">
+  <div class="paddingDiv">
+    <ion-grid class="pad-0 mar-0">
+      <ion-row class="pad-0 mar-0 mar-b-15">
+        <ion-col class="pad-0 mar-0">
+          <h5>Invoice Number</h5>
+        </ion-col>
+        <ion-col class="pad-0 mar-0">
+          <nybble-input type="number" (onKey)="calculate()" [(nybbleModel)]="inputInoviceNumber" placeholder="0000000"></nybble-input>
+        </ion-col>
+      </ion-row>
+      <ion-row class="pad-0 mar-0 mar-b-15">
+        <ion-col class="pad-0 mar-0">
+          <h5>Net</h5>
+        </ion-col>
+        <ion-col class="pad-0 mar-0">
+          <nybble-input type="number" (onKey)="calculate()" [(nybbleModel)]="inputNet" placeholder="$ 1.000,00"></nybble-input>
+        </ion-col>
+      </ion-row>
+      <ion-row class="pad-0 mar-0 mar-b-15">
+        <ion-col class="pad-0 mar-0">
+          <h5>% Tax</h5>
+        </ion-col>
+        <ion-col class="pad-0 mar-0">
+          <select class="selectInput" (change)="calculate()" [(ngModel)]="selectTax">
+            <option value="-1">Select Tax %</option>
+            <option value="0">0%</option>
+            <option value="5">5%</option>
+            <option value="10">10%</option>
+            <option value="21">21%</option>
+            <option value="27">27%</option>
+          </select>
+        </ion-col>
+      </ion-row>
+      <ion-row class="pad-0 mar-0 mar-b-15">
+        <ion-col class="pad-0 mar-0">
+          <h5>Total</h5>
+        </ion-col>
+        <ion-col class="pad-0 mar-0">
+          <nybble-input [disabled]="true" type="number" (onKey)="calculate()" [(nybbleModel)]="inputTotal" placeholder="$ 1.210,00"></nybble-input>
+        </ion-col>
+      </ion-row>
+      <ion-row class="pad-0 mar-0 mar-b-15 mar-t-15">
+        <ion-col class="pad-0 mar-0 padd-l-r-5">
+          <nybble-button text="Add" (onClick)="addTax()"></nybble-button>
+        </ion-col>
+        <ion-col class="pad-0 mar-0 padd-l-r-5">
+          <nybble-button text="Clear" (onClick)="clearTax()" color="#a028a9"></nybble-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid *ngFor="let tax of dataService.taxes; let i = index;" style="margin-bottom: 20px;" class="pad-0 mar-0">
+      <ion-row class="pad-0 mar-0 rowTitleTable">
+        <ion-col class="pad-0 mar-0 center colTable">
+          <h6 style="color: white;" class="titleTable">Invoice Number</h6>
+        </ion-col>
+        <ion-col class="pad-0 mar-0 center colTable">
+          <h6 style="color: white;" class="titleTable">{{tax.invoiceNumber}}</h6>
+        </ion-col>
+      </ion-row>
+      <ion-row class="pad-0 mar-0">
+        <ion-col class="pad-0 mar-0 center colTable">
+          <h6 class="titleTable">Net</h6>
+        </ion-col>
+        <ion-col class="pad-0 mar-0 tx-right colTable">
+          <h6 class="titleTable pad-r-10"> ${{tax.net | number:'1.2-2'}} </h6>
+        </ion-col>
+      </ion-row>
+      <ion-row class="pad-0 mar-0">
+        <ion-col class="pad-0 mar-0 center colTable">
+          <h6 class="titleTable">% Tax</h6>
+        </ion-col>
+        <ion-col class="pad-0 mar-0 tx-right colTable">
+          <h6 class="titleTable pad-r-10"> %{{tax.taxPersent }} </h6>
+        </ion-col>
+      </ion-row>
+      <ion-row class="pad-0 mar-0">
+        <ion-col class="pad-0 mar-0 center colTable">
+          <h6 class="titleTable">Tax</h6>
+        </ion-col>
+        <ion-col class="pad-0 mar-0 tx-right colTable">
+          <h6 class="titleTable pad-r-10"> ${{tax.tax | number:'1.2-2'}} </h6>
+        </ion-col>
+      </ion-row>
+      <ion-row class="pad-0 mar-0">
+        <ion-col class="pad-0 mar-0 center colTable">
+          <h6 class="titleTable">Total</h6>
+        </ion-col>
+        <ion-col class="pad-0 mar-0 tx-right colTable">
+          <h6 class="titleTable pad-r-10"> ${{tax.total | number:'1.2-2'}} </h6>
+        </ion-col>
+      </ion-row>
+      <ion-row class="pad-0 mar-0">
+        <ion-col class="pad-0 mar-0 center colTable pad-t-b-5">
+          <ion-icon (click)="removeTax(i)" name="trash"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <div class="m-t-b-15">
+      <nybble-button (onClick)="goToResults()" text="Process and Continue" background="#0098ff"></nybble-button>
+    </div>
+    <div class="weatherClass">
+      <h5 class="color-white">El clima estos dias sera:</h5>
+      <ion-grid class="pad-0 mar-0">
+        <ion-row *ngFor="let weat of whater | slice:0:3" class="pad-0 mar-0 rowCard">
+          <ion-grid class="pad-0 mar-0">
+            <ion-row class="pad-0 mar-0 ">
+              <span style="color: rgb(187, 0, 187); font-weight: bold;">{{weat.day}}</span>
+            </ion-row>
+            <ion-row class="pad-0 mar-0 color-white">
+              Se siente como de <span style="color: rgb(187, 0, 187);"> {{ weat.feel}}°</span>
+            </ion-row>
+            <ion-row class="pad-0 mar-0 color-white">
+              La temperatura es de <span style="color: rgb(187, 0, 187);"> {{ weat.temp}}°</span>
+            </ion-row>
+            <ion-row class="pad-0 mar-0 color-white">
+              Min <span style="color: rgb(187, 0, 187);"> {{ weat.min}}°</span> Max <span style="color: rgb(187, 0, 187);"> {{weat.max}}°</span>
+            </ion-row>
+          </ion-grid>
+        </ion-row>
+      </ion-grid>
+    </div>
+
+  </div>
+
+</ion-content>

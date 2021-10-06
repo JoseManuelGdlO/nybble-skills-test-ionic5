@@ -1,0 +1,10 @@
+
+    .buttonDiv {
+        text-align: center;
+        padding: 10px;
+        transition: opacity .3s;
+    }
+
+    .buttonDiv:active {
+        opacity: 30%;
+    }

@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Results</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="contentPadding">
+     <ion-grid *ngFor="let tax of dataProvider.taxes;" class="pad-0 mar-0 rowGrid">
+    <ion-row class="pad-0 mar-0">
+      <ion-col size="6" class="pad-0 mar-0">
+        <ion-grid class="pad-0 mar-0">
+          <ion-row class="pad-0 mar-0 center">
+            <h4 class="mar-0 h4Title">
+              Invoice Number
+            </h4>
+          </ion-row>
+          <ion-row class="pad-0 mar-0 center">
+            <h4 class="mar-0 h4Title">
+              <span style="color: white; font-size: 10vw;">{{ tax.invoiceNumber }}</span>
+            </h4>
+          </ion-row>
+        </ion-grid>
+      </ion-col>
+      <ion-col class="pad-0 mar-0">
+        <h5 class="h5Description mar-0">
+          Net: <span class="spanDescription"> ${{ tax.net | number:'1.2-2'}}</span><br>
+          % Tax: <span class="spanDescription"> %{{ tax.taxPersent }}</span><br>
+          Tax: <span class="spanDescription"> ${{ tax.tax | number:'1.2-2'}}</span><br>
+          Total: <span class="spanDescription"> ${{ tax.total | number:'1.2-2'}}</span><br>
+        </h5>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  </div>
+ 
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <nybble-button (onClick)="delete()" text="Delete Work" background="#0098ff"></nybble-button>
+    <ion-grid class="pad-0 mar-0">
+      <ion-row class="pad-0 mar-0">
+        <ion-col size="4" class="pad-0 mar-0 center">
+          Total Net: <br>{{ totalNet | number:'1.2-2' }}
+        </ion-col>
+        <ion-col size="4" class="pad-0 mar-0 center">
+          Total Tax: <br>{{ totalTax | number:'1.2-2' }}
+        </ion-col>
+        <ion-col size="4" class="pad-0 mar-0 center">
+          Total: <br>{{ total | number:'1.2-2' }}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,7 @@
+<input class="input"
+  [type]="typeInput"
+  [placeholder]="placeholder"
+  [(ngModel)]="genericText"
+  (keyup)="returnWord($event)"
+  [ngStyle]="{ 'border': border }"
+  [disabled]="disabled">
